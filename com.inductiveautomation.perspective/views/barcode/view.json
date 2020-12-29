@@ -1,0 +1,59 @@
+{
+  "custom": {},
+  "params": {},
+  "props": {},
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "Label"
+        },
+        "position": {
+          "basis": "32px"
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "session.custom.barcode_input"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "config": {
+                  "type": "ANY",
+                  "uuid": "f4e6c1c4-2559-4c08-b510-6b86d1d7f76a"
+                },
+                "context": {}
+              },
+              "scope": "C",
+              "type": "native/barcode"
+            }
+          }
+        },
+        "meta": {
+          "name": "Button"
+        },
+        "position": {
+          "basis": "34px"
+        },
+        "type": "ia.input.button"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

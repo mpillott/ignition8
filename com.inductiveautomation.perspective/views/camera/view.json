@@ -1,0 +1,70 @@
+{
+  "custom": {},
+  "params": {},
+  "props": {
+    "defaultSize": {
+      "height": 399,
+      "width": 268
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "events": {
+          "component": {
+            "onFileReceived": {
+              "config": {
+                "script": "\tself.getSibling(\"Label\").props.text \u003d event.file.name\n\t\n\t#this code displays the image\n\timport base64\n\tfileBytes \u003d event.file.getBytes()\n\timageData \u003d base64.b64encode(fileBytes)\n\turl \u003d \"data:image/png;base64,%s\" %(imageData)\n\tself.getSibling(\"Image\").props.source \u003d url\n\t\n\t#this scripts uploads image to a sql server database.  query text and database name will vary\n\tsql \u003d \"INSERT INTO file_data (docName, docData) VALUES (?,?)\"\n\targs \u003d [event.file.name, fileBytes]\n\tsystem.db.runPrepUpdate(sql, args, \"sqlserver\")\n\t"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "FileUpload"
+        },
+        "position": {
+          "basis": "200px",
+          "shrink": 0
+        },
+        "type": "ia.input.fileupload"
+      },
+      {
+        "meta": {
+          "name": "Image"
+        },
+        "position": {
+          "basis": "307px",
+          "grow": 1
+        },
+        "props": {
+          "fit": {
+            "mode": "fill"
+          },
+          "source": "data:image/png:base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAABrpJREFUaAXtWWtsVEUUPnPv3n10Sx9YWlpKS2MqsEukP0RFUBIQkZAgiaFCeUT--MMEDAU0-lN_GEPBADEx-gMi0iIQQQyaUECUlxEFJJTSEmjpG7ql291237vjOYVt9j727m5tYDVMcnfnec73zZw5M_dcgCfpyQw8mYH_9AywsUC_bX_jMxDmCzjwOSivEDjkA3B8IBeffgB2Dxjcw3w3A3YORHZy04rpzVj-12nUBGpqm6YBD72HQJdkmKXJRXkWKHzKAhlmA1hMIpjxMUoiBIJh8PnD4MXH4wtBd58XuhxezAfbkdgxYIYdm6um3hgtk5QJfF7bODvEIx9kGMWl06Zks7JJVsjKMKas3-UJQEvnENxoHeCeQPiogQmfbayafiFVQUkT2PntzSw_8-8aZ5HWzng6B8onZ4EoJD08Lq5whMPNdhdcu-UEtzf4jYmb1m9YXe6KO0DRkBSCmtqGuWjXe6eWZE2ZZcsDg6g_zOmNwJErHuhxBaFkvARvzLSC1ag_JhTmcPG6A5raXK24X9ZsrrKfVWDVLOpLxSE1-66vMUvCnrkV-UJxfoamkNjKLmcI3vzqLvR7IiPVxbkGOPROAeRYhJG6eJmOex44e-Vu2Bfk6zavsu2N1y9arytxa21DpdnIdi-eMykp8CR0z-9uGXiq6-gPwcFLQ5RNmGiSFs8pFkkv6U80IC6BrXXXl5gktu_1FyeJ2VYpkZyRdpePj-RjM240q2QT6VuEekk_4dAbp0kAXWSewPmehbOKDDnjUvMwi-1qMxNRy2s2ix4OVVsu6iX9hIPwqDo8rNAkgP59u60sO29CjjneuLj188rNsGN5HlQUm6AgS4Tnp5jg69UTYEZRahNBCkg_4SA88RSqNjHa3fxxZsPJZfNKEnqbeELHsp6805Ff28DtCy3YUmU_pZStWgHGYf3M8txRgx8KcGjDTat8PFg_mkQum_AQLq3xshXYfqBhPISgZ-VrZZJkUHHTGq-qO3rVA-9_36eqJ7NaZE9tH0SFBEMRqKtvCYIIE6sr7fej9fQvQ8mD7K3SwsxRg48VPJZ5mszSiZkS4VPKlRGIMD4_mcNKKeRRlAkX4VPqkhFAO6vItBiUfdKiTLgInxKMjADnUJjOBAifLgFstJhN6bkClge4VF5AtgJ4C4z4_CElybQoB9AToctU-WIZAbQxYdCbngTorQ5fWWV4aWZlFZyBN10JuGliGQSV5iAjgEvUTffxdExdvcPXcacSm4wArsCVO91uoJMv3VJXrxcXgN1S4pIREDg7FUbsrd2Dyn6PtdyDkQznYAAYgx-VQGQEmMS_w17Bv2_2A90C0yVdbn5w_WFMrFdikhGgixLug2NuTxAuN6svZMrBj6J8u8sNtAKMseaNK6ZeUuqUEaBG3Ae76L_hthN6nT7KPrbUN-CnF_xh_Wg-nyAJ1eZUEaCXBuy4F49tqP-jC5zuwGMhQPGiExe7gfYkpsbJBludFhAVgeFOzFCNJBz-QAR-vtABA0Mq96sla0zr7uPEUSgScQxiAG15ZSULaynQJICxSgcX2Nvot0I-InGuAx71-TCI-xDBc_xZU11lb9ACT3WyNzJlJ4rLoIhazrlIbdNKsyFRZC6A8-RB0spkNQqAsd6kU1PbAJy_6ujbstoeNyJBwjRXIKoF98MB5LgOnwhdo27cGYAjv7Vh-G8AbVPbzRoRJEXglE8q4Em_P0iTwCkkr5t0CdBICu8xAeYxgbVS2Y374fzVXjh4ohXovKAoc6qJTvrmNhdcbHQgUE3THg7Jo178tqCfdE0odujOnzA63e_fhSuxNrae8laLBFrfB0w47bRS9I2Azpa-gQB0O4ag0-GB8EPcJkmA2c_mQ1lhpkwsecBOh_cQBnmXyxoUhaQJRMdFvw_gwKW4N1IeH5Uj-0cpi14owkl4ENUjF153vAWC4chHm6rsn8r6KgoJTUjRH-gjxJZV9mX4ZcWGXuJLPGDalX0SlhlDu2OHGRO-IE9H--v0Xz0j15cWvIuRaaH8hF9uxmQG6RsZj_BXgfOXcOMVIbh8xETfyXLRi_mx7OKM38Zj_hq6jVNWnln_7qrSYfvetr9pJg8Fj1P_VyoKoKTACj-caQd8L-FGyViwobK8V29CxoSAnoJk2rbXNbwcicAv-I1NFNAmhs8cxk7gSi9MND5lE0okcDTt1SvtZ3Dc6S7c3NEDEyPaHycjKy0IEFBRFHfTP5oSWhyreUiKSropbQigz_-TkOJb1-Hnimwf6qKOaUybIJAE4c4QYzs2VdnoIqm-i8SA_l9l_wF44XygT0mE4wAAAABJRU5ErkJggg\u003d\u003d"
+        },
+        "type": "ia.display.image"
+      },
+      {
+        "meta": {
+          "name": "Label"
+        },
+        "position": {
+          "basis": "32px"
+        },
+        "props": {
+          "text": "about.png"
+        },
+        "type": "ia.display.label"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}
